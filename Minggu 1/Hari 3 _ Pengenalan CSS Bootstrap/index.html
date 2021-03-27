@@ -21,14 +21,14 @@
               <a class="nav-link" href="#">Track Order</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">Contact Us</a>
+              <a class="nav-link active" href="http://github.com/Raku-Seru">Contact Us</a>
             </li>
         </ul>
         <!-- Header 2 -->
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
             <a class="navbar-brand" href="#"><img src="img/logo.png" width="80%"></a>
-            <form class="form-inline ml-auto my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Anything Here!" aria-label="Search">
+            <form class="form-inline ml-auto my-lg-0" id="formItem">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search Anything Here!" aria-label="Search" id="keyword">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </nav>
@@ -95,50 +95,9 @@
                 </div>
               <!-- Row 2 buat Card -->
               <div class="row">
-                <div class="col mt-4 ml-3">
-                  <div class="card text-center" style="height: 30rem;width: 18rem;">
-                    <img src="img/switch-bravelydefault-2-us-2000x2000.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">BRAVELY DEFAULT II</h5>
-                      <p class="card-text">Embark on a search for four Crystals in the latest entry in the Bravely series. Explore a new world filled with new characters— with the atmosphere and gameplay the series is known for.</p>
-                      <a href="#" class="btn btn-primary">Masukan ke Keranjang</a>
-                    </div>
-                  </div>
-                </div>
+                <div class="row col-md-12 mt-2" id="listBarang">
 
-                <div class="col mt-4 mr-3">
-                  <div class="card text-center" style="height: 30rem;width: 18rem;">
-                    <img src="img/105275.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Mario Kart 8 Deluxe</h5>
-                      <p class="card-text">Hit the road with the definitive version of Mario Kart™ 8 and play anytime, anywhere! Race your friends or battle them in a revised battle mode on new and returning battle courses.</p>
-                      <a href="#" class="btn btn-primary">Masukan ke Keranjang</a>
-                    </div>
-                  </div>
                 </div>
-
-                <div class="col mt-4 ml-3">
-                  <div class="card text-center" style="height: 30rem;width: 18rem;">
-                    <img src="img/108043.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Super Smash Bros. Ultimate</h5>
-                      <p class="card-text">Legendary game worlds and fighters collide in the ultimate showdown—a new entry in the Super Smash Bros. series for the Nintendo Switch system!</p>
-                      <a href="#" class="btn btn-primary">Masukan ke Keranjang</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col mt-4 mr-3">
-                  <div class="card text-center" style="height: 30rem;width: 18rem;">
-                    <img src="img/pmswordbox_2.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Pokémon Sword</h5>
-                      <p class="card-text">A new generation of Pokémon is coming to the Nintendo Switch™ system. Begin your adventure as a Pokémon Trainer by choosing one of three new partner Pokémon: Grookey, Scorbunny, or Sobble.</p>
-                      <a href="#" class="btn btn-primary">Masukan ke Keranjang</a>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
             <!-- Panel kanan dan external links-->
@@ -172,11 +131,64 @@
               <button type="submit" class="btn btn-primary">Submit</button>
 
             </div>
-        </div>
+            </div>
 
         <div class="p-3 mb-2 mt-4 bg-dark text-white text-center"><a href="https://github.com/Raku-seru">Created by Raxel A.K</a></div>
 
     </div>
+
+    <script>
+    var items = [
+      ['001', 'BRAVELY DEFAULT II', 'Embark on a search for four Crystals in the latest entry in the Bravely series. Explore a new world filled with new characters— with the atmosphere and gameplay the series is known for.', 'img/switch-bravelydefault-2-us-2000x2000.jpg'],
+      ['002', 'Mario Kart 8 Deluxe', 'Hit the road with the definitive version of Mario Kart™ 8 and play anytime, anywhere! Race your friends or battle them in a revised battle mode on new and returning battle courses.', 'img/105275.jpg'],
+      ['003', 'Super Smash Bros. Ultimate', 'Legendary game worlds and fighters collide in the ultimate showdown—a new entry in the Super Smash Bros. series for the Nintendo Switch system!', 'img/108043.jpg'],
+      ['004', 'Pokémon Sword', 'A new generation of Pokémon is coming to the Nintendo Switch™ system. Begin your adventure as a Pokémon Trainer by choosing one of three new partner Pokémon: Grookey, Scorbunny, or Sobble.', 'img/pmswordbox_2.jpg']
+      ]
+
+      function printItems(array) {
+              var temp = ""
+              for(var i = 0; i < array.length; i++) {
+                //Penampil item card dari bootstrap
+                temp += `<div class ="col-6 mt-2">
+                          <div class="card text-center">
+                            <img src="${array[i][3]}" class="card-img-top" height="200px" width="200px" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" id="itemName"> ${array[i][1]} </h5>
+                                <p class="card-text" id="itemDesc"> ${array[i][2]} </p>
+                                <a href="#" class="btn btn-primary" id="addCart" onclick=addCart()>Tambahkan ke keranjang</a>
+                            </div>
+                          </div>
+                        </div>`
+              }
+              listBarang.innerHTML = temp;
+            }
+    printItems(items);
+
+    //function untuk search object kedalam array sementara
+      function filter(kataKunci){
+        var tempFilter = [];
+        for(let j = 0; j < items.length; j++){
+          var item = items[j];
+          var namaItem = item[1];
+          var isMatch = namaItem.toLowerCase().includes(kataKunci.toLowerCase());
+          if(isMatch == true){
+            tempFilter.push(item);
+          }
+        }
+        return tempFilter
+      }
+
+      // Cetak filtered array
+      var formSearch = document.getElementById("formItem")
+      formSearch.addEventListener("submit", function (event) {
+        event.preventDefault()
+        var keyword = document.getElementById("keyword").value;
+        var filtered = filter(keyword);
+        printItems(filtered)
+      });
+
+    </script>
+
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
